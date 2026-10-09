@@ -1,5 +1,6 @@
 import Logo from "@/app/_components/Logo";
 import Navigation from "@/app/_components/Navigation";
+import Header from "./_components/Header";
 
 import { Josefin_Sans } from "next/font/google";
 
@@ -26,14 +27,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${josefin.className} bg-primary-950 text-primary-100 min-h-screen`}
+        className={`${josefin.className} bg-primary-950 text-primary-100 min-h-screen flex flex-col antialiased`}
       >
-        <header>
-          <Logo />
-          <Navigation />
-        </header>
-        <main>{children}</main>
-        <footer>Copyright by Nomad Lounge</footer>
+        <Header />
+
+        <div className="flex-1 px-8 py-12">
+          <main className="max-w-7xl mx-auto">{children}</main>
+        </div>
+        <footer className="max-w-7xl mx-auto">Copyright by Nomad Lounge</footer>
       </body>
     </html>
   );
