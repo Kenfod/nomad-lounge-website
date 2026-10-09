@@ -4,7 +4,13 @@ import Navigation from "@/app/_components/Navigation";
 import "@/app/_styles/globals.css";
 
 export const metadata = {
-  title: "Nomad Lounge Website",
+  // title: "Nomad Lounge Website",
+  title: {
+    template: "%s / Nomad Lounge",
+    default: "Welcome / Nomad Lounge",
+  },
+  description:
+    "Book your exclusive woodland escape. Explore our deluxe cabins featuring private hot tubs and breathtaking mountain views.",
 };
 
 export default function RootLayout({ children }) {
