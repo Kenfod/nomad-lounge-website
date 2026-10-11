@@ -139,16 +139,103 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      "https://restcountries.com",
-      // "https://restcountries.com/v2/all?fields=name,flag",
-    );
-    const countries = await res.json();
-    return countries;
-  } catch {
-    throw new Error("Could not fetch countries");
+    const apiKey = process.env.REST_COUNTRIES_API_KEY;
+
+    if (!apiKey) {
+      throw new Error("REST_COUNTRIES_API_KEY is missing");
+    }
+
+    const countries = [];
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+      const url = new URL("https://api.restcountries.com/countries/v5");
+
+      url.searchParams.set("response_fields", "names.common,flag.emoji");
+      url.searchParams.set("limit", "100");
+      url.searchParams.set("offset", String(offset));
+
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+        cache: "force-cache",
+      });
+
+      const body = await res.json();
+
+      if (!res.ok || !Array.isArray(body.data?.objects)) {
+        throw new Error(
+          `Countries API failed: HTTP ${res.status} - ${
+            body.errors?.[0]?.message ?? "Unexpected response"
+          }`,
+        );
+      }
+
+      countries.push(
+        ...body.data.objects
+          .filter((country) => country.names?.common)
+          .map((country) => ({
+            name: country.names.common,
+            flag: country.flag?.emoji ?? "",
+          })),
+      );
+
+      hasMore = body.data.meta?.more === true;
+      offset += body.data.objects.length;
+
+      if (hasMore && body.data.objects.length === 0) {
+        throw new Error("Countries API pagination made no progress");
+      }
+    }
+
+    return countries.sort((a, b) => a.name.localeCompare(b.name));
+  } catch (error) {
+    console.error("getCountries failed:", error);
+
+    throw new Error("Could not fetch countries", { cause: error });
   }
 }
+
+// export async function getCountries() {
+//   const res = await fetch(
+//     "https://restcountries.com/v3.1/all?fields=name,flag",
+//   );
+
+//   const body = await res.json();
+
+//   console.log("Countries API status:", res.status);
+//   console.log(
+//     "Countries API response preview:",
+//     JSON.stringify(body).slice(0, 1000),
+//   );
+
+//   if (!res.ok || !Array.isArray(body)) {
+//     throw new Error(`Unexpected countries API response: HTTP ${res.status}`);
+//   }
+
+  //   if (!res.ok) {
+  //     throw new Error(`HTTP error: ${res.status} ${res.statusText}`);
+  //   }
+
+  //   const countries = await res.json();
+  //   if (!Array.isArray(countries)) {
+  //     throw new Error("Invalid countries API response");
+  //   }
+
+  //   return countries
+  //     .map((country) => ({
+  //       name: country.name?.common,
+  //       flag: country.flag ?? "",
+  //     }))
+  //     .filter((country) => country.name)
+  //     .sort((a, b) => a.name.localeCompare(b.name));
+  // } catch (error) {
+  //   console.error("getCountries failed:", error);
+  //   throw new Error("Could not fetch countries", { cause: error });
+  // }
+// }
 
 /////////////
 // CREATE
