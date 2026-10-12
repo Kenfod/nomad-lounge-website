@@ -1,11 +1,16 @@
 import Image from "next/image";
 import image1 from "@/public/about-1.png";
 import image2 from "@/public/about-2.png";
+import { getCabins } from "../_lib/data-service";
+
+export const revalidate = 86400;
 
 export const metadata = {
   title: "About",
 };
-export default function Page() {
+export default async function Page() {
+  const cabins = await getCabins();
+
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
       <div className="col-span-3">
@@ -26,16 +31,17 @@ export default function Page() {
           </p>
           <p>
             Every element of your stay has been carefully crafted to serve as
-            your personal slice of nirvana. Our accommodations blend rustic,
-            natural charm with premium, state-of-the-art amenities, ensuring
-            that your escape into the wild never compromises on style or
-            convenience. From spacious, sun-drenched living areas to panoramic
-            windows that frame breathtaking mountain landscapes, each hideaway
-            is a masterpiece of comfort, privacy, and understated elegance.
+            your personal slice of nirvana. Our {cabins.length} cabins blend
+            rustic, natural charm with premium, state-of-the-art amenities,
+            ensuring that your escape into the wild never compromises on style
+            or convenience. From spacious, sun-drenched living areas to
+            panoramic windows that frame breathtaking mountain landscapes, each
+            hideaway is a masterpiece of comfort, privacy, and understated
+            elegance.
           </p>
           <p>
             We understand that true luxury lies in total peace of mind, which is
-            why our dedicated staff stands ready to ensure your retreat is
+            why our dedicated staff stand ready to ensure your retreat is
             seamless from the moment you arrive. Whether you are planning a solo
             wellness journey, a romantic interlude, or a peaceful family
             gathering, Nomad Lounge is more than just a destination—it is a
