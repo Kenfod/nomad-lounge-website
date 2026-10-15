@@ -27,6 +27,9 @@ export async function getCabinPrice(id) {
     .eq("id", id)
     .single();
 
+  // For testing Loading Spinner in the CabinList streaming
+  // await new Promise((res) => setTimeout(res, 2000));
+
   if (error) {
     console.error(error);
   }
@@ -129,6 +132,9 @@ export async function getBookedDatesByCabinId(cabinId) {
 export async function getSettings() {
   const { data, error } = await supabase.from("settings").select("*").single();
 
+  // For testing Loading Spinner in the CabinList streaming
+  // await new Promise((res) => setTimeout(res, 2000));
+
   if (error) {
     console.error(error);
     throw new Error("Settings could not be loaded");
@@ -215,26 +221,26 @@ export async function getCountries() {
 //     throw new Error(`Unexpected countries API response: HTTP ${res.status}`);
 //   }
 
-  //   if (!res.ok) {
-  //     throw new Error(`HTTP error: ${res.status} ${res.statusText}`);
-  //   }
+//   if (!res.ok) {
+//     throw new Error(`HTTP error: ${res.status} ${res.statusText}`);
+//   }
 
-  //   const countries = await res.json();
-  //   if (!Array.isArray(countries)) {
-  //     throw new Error("Invalid countries API response");
-  //   }
+//   const countries = await res.json();
+//   if (!Array.isArray(countries)) {
+//     throw new Error("Invalid countries API response");
+//   }
 
-  //   return countries
-  //     .map((country) => ({
-  //       name: country.name?.common,
-  //       flag: country.flag ?? "",
-  //     }))
-  //     .filter((country) => country.name)
-  //     .sort((a, b) => a.name.localeCompare(b.name));
-  // } catch (error) {
-  //   console.error("getCountries failed:", error);
-  //   throw new Error("Could not fetch countries", { cause: error });
-  // }
+//   return countries
+//     .map((country) => ({
+//       name: country.name?.common,
+//       flag: country.flag ?? "",
+//     }))
+//     .filter((country) => country.name)
+//     .sort((a, b) => a.name.localeCompare(b.name));
+// } catch (error) {
+//   console.error("getCountries failed:", error);
+//   throw new Error("Could not fetch countries", { cause: error });
+// }
 // }
 
 /////////////
