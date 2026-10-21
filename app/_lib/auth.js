@@ -2,6 +2,9 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
 const authConfig = {
+  // secret: process.env.AUTH_SECRET,
+  // debug: true,
+
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -13,9 +16,14 @@ const authConfig = {
       return !!auth?.user;
     },
   },
+  pages: {
+    signIn: "/login",
+  },
 };
 
 export const {
   auth,
+  signIn,
+  signOut,
   handlers: { GET, POST },
 } = NextAuth(authConfig);
