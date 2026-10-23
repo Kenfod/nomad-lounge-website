@@ -158,7 +158,7 @@ export async function getCountries() {
     while (hasMore) {
       const url = new URL("https://api.restcountries.com/countries/v5");
 
-      url.searchParams.set("response_fields", "names.common,flag.emoji");
+      url.searchParams.set("response_fields", "names.common,flag.url_svg");
       url.searchParams.set("limit", "100");
       url.searchParams.set("offset", String(offset));
 
@@ -167,6 +167,7 @@ export async function getCountries() {
           Authorization: `Bearer ${apiKey}`,
         },
         cache: "force-cache",
+        // cache: "no-store",
       });
 
       const body = await res.json();
@@ -179,12 +180,19 @@ export async function getCountries() {
         );
       }
 
+      // FOR TESTING COUNTRY FLAG
+      // const country = body.data.objects.find(
+      //   (country) => country.names?.common === country,
+      // );
+
+      // console.log("Raw country flag data:", country?.flag);
+
       countries.push(
         ...body.data.objects
           .filter((country) => country.names?.common)
           .map((country) => ({
             name: country.names.common,
-            flag: country.flag?.emoji ?? "",
+            flag: country.flag?.url_svg ?? "",
           })),
       );
 
@@ -233,7 +241,7 @@ export async function getCountries() {
 //   return countries
 //     .map((country) => ({
 //       name: country.name?.common,
-//       flag: country.flag ?? "",
+//       flag: country.flag?.url_svg ?? "",
 //     }))
 //     .filter((country) => country.name)
 //     .sort((a, b) => a.name.localeCompare(b.name));
@@ -275,7 +283,7 @@ export async function createBooking(newBooking) {
 
 /////////////
 // UPDATE
-
+/*
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase
@@ -319,3 +327,4 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+*/
