@@ -48,7 +48,9 @@ export const getCabins = async function () {
 
   if (error) {
     console.error(error);
-    throw new Error("Cabins could not be loaded");
+    throw new Error(
+      "Cabins could not be loaded. Check your internet connection!",
+    );
   }
 
   return data;
@@ -75,7 +77,9 @@ export async function getBooking(id) {
 
   if (error) {
     console.error(error);
-    throw new Error("Booking could not get loaded");
+    throw new Error(
+      "Booking could not get loaded. Check your internet connection!",
+    );
   }
 
   return data;
@@ -93,7 +97,9 @@ export async function getBookings(guestId) {
 
   if (error) {
     console.error(error);
-    throw new Error("Bookings could not get loaded");
+    throw new Error(
+      "Bookings could not get loaded. Check your internet connection!",
+    );
   }
 
   return data;
@@ -113,7 +119,9 @@ export async function getBookedDatesByCabinId(cabinId) {
 
   if (error) {
     console.error(error);
-    throw new Error("Bookings could not get loaded");
+    throw new Error(
+      "Bookings could not get loaded. Check your internet connection!",
+    );
   }
 
   // Converting to actual dates to be displayed in the date picker
@@ -137,7 +145,9 @@ export async function getSettings() {
 
   if (error) {
     console.error(error);
-    throw new Error("Settings could not be loaded");
+    throw new Error(
+      "Settings could not be loaded, Check your internet connection!",
+    );
   }
 
   return data;
@@ -259,7 +269,9 @@ export async function createGuest(newGuest) {
 
   if (error) {
     console.error(error);
-    throw new Error("Guest could not be created");
+    throw new Error(
+      "Guest could not be created. Check your internet connection!",
+    );
   }
 
   return data;
@@ -275,7 +287,9 @@ export async function createBooking(newBooking) {
 
   if (error) {
     console.error(error);
-    throw new Error("Booking could not be created");
+    throw new Error(
+      "Booking could not be created. Check your internet connection!",
+    );
   }
 
   return data;

@@ -20,7 +20,7 @@ function UpdateProfileForm({ guest, children }) {
           disabled
           defaultValue={fullName}
           name="fullName"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
       </div>
 
@@ -30,7 +30,7 @@ function UpdateProfileForm({ guest, children }) {
           disabled
           defaultValue={email}
           name="email"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
       </div>
 
@@ -68,7 +68,6 @@ function UpdateProfileForm({ guest, children }) {
 }
 
 export default UpdateProfileForm;
-
 
 // {
 //   countryFlag && (
