@@ -15,34 +15,37 @@ function UpdateProfileForm({ guest, children }) {
       action={updateGuest}
       className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
     >
+      {/* Full Name - Disabled Field */}
       <div className="space-y-2">
-        <label>Full name</label>
+        <label className="text-primary-100">Full name</label>
         <input
           disabled
           defaultValue={fullName}
           name="fullName"
-          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-primary-600 disabled:text-primary-200"
         />
       </div>
 
+      {/* Email Address - Disabled Field */}
       <div className="space-y-2">
         <label>Email address</label>
         <input
           disabled
           defaultValue={email}
           name="email"
-          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-5 py-3 bg-primary-500 text-primary-200 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-primary-600 disabled:text-primary-200"
         />
       </div>
 
+      {/* Nationality Select Section */}
       <div className="space-y-2 ">
         <div className="flex relative items-center justify-between w-full h-5">
-          <label htmlFor="nationality">Where are you from?</label>
+          <label htmlFor="nationality" className="text-primary-100">
+            Where are you from?
+          </label>
           <img
             src={countryFlag}
-            // src={countryFlag.startsWith("/") ? countryFlag : `/${countryFlag}`}
             alt="Country flag"
-            // alt={`${nationality || "Country"} flag`}
             className="h-5 rounded-sm object-contain object-right"
           />
         </div>
@@ -50,8 +53,11 @@ function UpdateProfileForm({ guest, children }) {
         {children}
       </div>
 
+      {/* National ID - Editable Field */}
       <div className="space-y-2">
-        <label htmlFor="nationalID">National ID number</label>
+        <label htmlFor="nationalID" className="text-primary-100">
+          National ID number
+        </label>
         <input
           defaultValue={nationalID}
           name="nationalID"
@@ -59,6 +65,7 @@ function UpdateProfileForm({ guest, children }) {
         />
       </div>
 
+      {/* Form Submission Wrapper */}
       <div className="flex justify-end items-center gap-6">
         <Button />
       </div>

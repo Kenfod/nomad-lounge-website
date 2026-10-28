@@ -23,8 +23,11 @@ function ReservationCard({ booking }) {
     cabins: { name, image },
   } = booking;
 
+  const isPastBooking = isPast(new Date(startDate));
+
   return (
-    <div className="flex border border-primary-800">
+    <div className="flex border border-primary-800 bg-primary-900">
+      {/* Cabin Image Wrapper */}
       <div className="relative h-32 aspect-square">
         <Image
           src={image}
@@ -34,17 +37,20 @@ function ReservationCard({ booking }) {
         />
       </div>
 
+      {/* Main Reservation Information */}
       <div className="flex-grow px-6 py-3 flex flex-col">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-semibold">
             {numNights} nights in Cabin {name}
           </h3>
-          {isPast(new Date(startDate)) ? (
-            <span className="bg-accent-500 text-yellow-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+
+          {/* Custom Theme Badge Badges */}
+          {isPastBooking ? (
+            <span className="bg-secondary-600 text-secondary-400 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
               past
             </span>
           ) : (
-            <span className="bg-primary-500 text-green-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+            <span className="bg-secondary-900 text-secondary-700 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
               upcoming
             </span>
           )}
@@ -70,8 +76,9 @@ function ReservationCard({ booking }) {
         </div>
       </div>
 
+      {/* Action Operations Column */}
       <div className="flex flex-col border-l border-primary-800 w-[100px]">
-        {!isPast(startDate) ? (
+        {!isPastBooking ? (
           <>
             <Link
               href={`/account/reservations/edit/${id}`}
