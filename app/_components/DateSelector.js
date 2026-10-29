@@ -35,9 +35,45 @@ function DateSelector({ settings, cabin, bookedDates }) {
   // console.log(bookedDates);
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="pt-6 flex flex-col justify-between">
       <DayPicker
-        className="pt-12 place-self-center"
+        className="pt-8 place-self-center max-w-full"
+        mode="range"
+        onSelect={setRange}
+        selected={displayRange}
+        min={minBookingLength + 1}
+        max={maxBookingLength}
+        startMonth={new Date()}
+        endMonth={new Date(new Date().getFullYear() + 5, 11)}
+        captionLayout="dropdown"
+        numberOfMonths={2}
+        classNames={{
+          months: "flex flex-row justify-center gap-3",
+          month: "m-2 min-w-0",
+          month_caption: "flex justify-center items-center h-10 font-medium",
+          dropdowns: "flex items-center justify-center gap-2",
+          month_grid: "w-full border-collapse",
+          weekdays: "flex",
+          weekday: "w-7 text-center text-sm font-medium",
+          week: "flex w-full mt-0",
+          day: "w-7 h-7 p-0 text-center",
+          day_button: "w-7 h-7 p-0 text-sm rounded-full hover:bg-primary-200",
+        }}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date) => isSameDay(date, curDate))
+        }
+        modifiersClassNames={{
+          selected: "!bg-primary-400 !text-primary-800",
+          range_start:
+            "!bg-primary-500 !text-primary-900 font-bold !rounded-l-full",
+          range_end:
+            "!bg-primary-500 !text-primary-900 font-bold !rounded-r-full",
+        }}
+      />
+
+      {/* <DayPicker
+        className="pt-12 place-self-center max-w-full overflow-x-auto"
         mode="range"
         onSelect={setRange}
         selected={displayRange}
@@ -47,12 +83,24 @@ function DateSelector({ settings, cabin, bookedDates }) {
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
-        numberOfMonths={1}
+        numberOfMonths={2}
+        // Display both months horizontally
+        classNames={{
+          months: "flex flex-row gap-6",
+        }}
         disabled={(curDate) =>
           isPast(curDate) ||
           bookedDates.some((date) => isSameDay(date, curDate))
         }
-      />
+        // Custom Tailwind CSS Class Modifier Sync Overrides
+        modifiersClassNames={{
+          selected: "!bg-primary-300 !text-primary-800",
+          range_start:
+            "!bg-primary-500 !text-primary-900 font-bold !rounded-l-full",
+          range_end:
+            "!bg-primary-500 !text-primary-900 font-bold !rounded-r-full",
+        }}
+      /> */}
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
         <div className="flex items-baseline gap-6">
