@@ -1,19 +1,17 @@
 "use client";
 
 import { TrashIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
-import { deleteReservation } from "../_lib/actions";
 import { useState, useTransition } from "react";
 import SpinnerMini from "./SpinnerMini";
 
-function DeleteReservation({ bookingId }) {
+function DeleteReservation({ bookingId, onDelete }) {
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
 
   function handleDelete() {
-    // if (confirm("Are you sure you want to delete this reservation?"))
     startTransition(async () => {
       try {
-        await deleteReservation(bookingId);
+        await onDelete(bookingId);
         setIsOpen(false);
       } catch (err) {
         console.error(err);
