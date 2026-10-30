@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { updateGuest } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
+import Image from "next/image";
 
 function UpdateProfileForm({ guest, children }) {
   const [count, setCount] = useState();
@@ -42,10 +43,12 @@ function UpdateProfileForm({ guest, children }) {
           <label htmlFor="nationality" className="text-primary-100">
             Where are you from?
           </label>
-          <img
+          <Image
             src={countryFlag}
             alt="Country flag"
-            className="h-5 rounded-sm object-contain object-right"
+            width={32}
+            height={20}
+            className="h-5 w-8 rounded-sm object-contain object-right"
           />
         </div>
 

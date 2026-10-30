@@ -1,4 +1,4 @@
-import { Children } from "react";
+import { children } from "react";
 import SideNavigation from "@/app/_components/SideNavigation";
 
 export default function Layout({ children }) {
